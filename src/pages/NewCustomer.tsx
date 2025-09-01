@@ -1,0 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Logo from "../components/Logo";
+
+import PoweredBy from "../components/PoweredBy";
+import CallSessionTimer from "../components/CallSessionTimer";
+import { useTranscriptions } from "@livekit/components-react";
+import NewUserForm from "../components/NewUserForm";
+
+const NewCustomer = ({ transitionTo }: any) => {
+  useTranscriptions();
+
+  return (
+    <div className="flex flex-col w-screen h-screen bg-gradient-background">
+      {/* Main content container */}
+      <div className="flex flex-col justify-between flex-1 w-full p-8 mx-auto">
+        {/* Top section with logo */}
+        <div className="max-w-lg pt-8 mx-auto">
+          <Logo />
+        </div>
+
+        {/* Middle section with welcome text and robot */}
+        <div className="flex flex-col justify-center flex-1 mx-auto text-5xl font-bold font-montserrat ">
+          <NewUserForm transitionTo={transitionTo} />
+        </div>
+
+        {/* Bottom section with button and branding */}
+        <div className="pb-8">
+          <CallSessionTimer />
+        </div>
+      </div>
+      <PoweredBy />
+    </div>
+  );
+};
+
+export default NewCustomer;
