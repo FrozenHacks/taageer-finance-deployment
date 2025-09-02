@@ -8,7 +8,11 @@ import {
   useRoomContext,
   useTranscriptions,
 } from "@livekit/components-react";
-import { reformatData, transformTranscriptionData } from "../utils/utils";
+import {
+  calculateCallTime,
+  reformatData,
+  transformTranscriptionData,
+} from "../utils/utils";
 import type { DashboardData } from "../types/types";
 import { Loader } from "lucide-react";
 // import { DisconnectButton } from "@livekit/components-react";
@@ -54,12 +58,11 @@ const Dashboard = () => {
       room.registerRpcMethod("getDetails", handleDetails);
     }
   }, [room]);
-  console.log(data);
 
   const handleDisconnect = () => {
     if (transcriptions) {
       const transcription = transformTranscriptionData(transcriptions);
-
+      calculateCallTime(transcriptions); // calculate call time and store in session
       sessionStorage.setItem("transcription", JSON.stringify(transcription));
       console.log(transcriptions);
     }

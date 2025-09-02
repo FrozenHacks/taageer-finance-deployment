@@ -121,7 +121,8 @@ const FinancialDashboard: React.FC<FinancialDashboardProps> = ({ data }) => {
   };
 
   const getLoanTitle = (type: string) => {
-    return type === "car" ? "Car Loan" : "Personal Loan";
+    return type;
+    // return type === "car" ? "Car Loan" : "Personal Loan";
   };
 
   return (

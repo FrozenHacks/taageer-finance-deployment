@@ -88,7 +88,7 @@ function App() {
   console.log("currecntState", currentState);
 
   return (
-    <>
+    <div className="h-screen bg-white ">
       {currentState == null && <NotFound />}
       {/* <Dashboard /> */}
       {currentState === "welcome" && (
@@ -135,7 +135,7 @@ function App() {
           {renderComponent()}
         </LiveKitRoom>
       )}
-    </>
+    </div>
   );
 }
 

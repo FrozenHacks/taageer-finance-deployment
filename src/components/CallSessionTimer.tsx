@@ -6,7 +6,7 @@ import speakerIcon from "/pause.svg";
 import endCallIcon from "/endCall.svg";
 import SpeakingParticipant from "./SpeakingParticipant";
 import { DisconnectButton, useTranscriptions } from "@livekit/components-react";
-import { transformTranscriptionData } from "../utils/utils";
+import { calculateCallTime, transformTranscriptionData } from "../utils/utils";
 
 const CallSessionTimer: React.FC = () => {
   const transcriptions = useTranscriptions();
@@ -29,7 +29,7 @@ const CallSessionTimer: React.FC = () => {
   const handleDisconnect = () => {
     if (transcriptions) {
       const transcription = transformTranscriptionData(transcriptions);
-
+      calculateCallTime(transcriptions);
       sessionStorage.setItem("transcription", JSON.stringify(transcription));
       console.log(transcriptions);
     }
@@ -44,21 +44,24 @@ const CallSessionTimer: React.FC = () => {
   //     .padStart(2, "0")} mins`;
   // };
 
+  const handleMute = () => {
+    console.log("mute");
+  };
   return (
     <div className="w-full max-w-4xl p-4 mx-auto">
       {/* Desktop Layout */}
       <div className="items-center hidden gap-6 md:flex">
         {/* Avatar */}
-        <div className="flex items-stretch justify-center">
+        {/* <div className="flex items-stretch justify-center">
           <img
             src={avatarIcon}
             alt="AI Assistant Avatar"
             className="w-[324px] h-full object-contain"
           />
-        </div>
+        </div> */}
 
         {/* Call Info Panel */}
-        <div className="flex-1 p-6 bg-white border border-gray-100 shadow-lg rounded-2xl lg:p-8">
+        <div className="flex-1 max-w-sm p-6 mx-auto bg-white border border-gray-100 shadow-lg rounded-2xl lg:p-8">
           <div className="mb-6 text-center">
             {/* <div className="mb-2 text-lg font-semibold text-green-600 lg:text-xl">
               {formatTime(time)}
@@ -70,12 +73,15 @@ const CallSessionTimer: React.FC = () => {
 
           {/* Control Icons */}
           <div className="flex items-center justify-center gap-6 lg:gap-6">
-            <div className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer">
+            <div
+              onClick={handleMute}
+              className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer"
+            >
               <img src={micIcon} alt="Microphone" className="object-contain" />
             </div>
-            <div className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer">
+            {/* <div className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer">
               <img src={speakerIcon} alt="Speaker" className="object-contain" />
-            </div>
+            </div> */}
             <div className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer">
               <DisconnectButton onClick={handleDisconnect}>
                 <img

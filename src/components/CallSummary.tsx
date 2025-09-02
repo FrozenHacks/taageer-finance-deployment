@@ -84,13 +84,13 @@ const CallSummary: React.FC<CallSummaryProps> = ({
       .padStart(2, "0")} mins`;
   };
 
-  const getSpeakerName = (speaker: "agent" | "customer"): string => {
-    return speaker === "agent" ? "AI Assistant" : "Customer";
-  };
+  // const getSpeakerName = (speaker: "agent" | "customer"): string => {
+  //   return speaker === "agent" ? "AI Assistant" : "Customer";
+  // };
 
-  const getSpeakerColor = (speaker: "agent" | "customer"): string => {
-    return speaker === "agent" ? "text-blue-700" : "text-green-700";
-  };
+  // const getSpeakerColor = (speaker: "agent" | "customer"): string => {
+  //   return speaker === "agent" ? "text-blue-700" : "text-green-700";
+  // };
 
   const getSpeakerBg = (speaker: "agent" | "customer"): string => {
     return speaker === "agent" ? "bg-blue-50" : "bg-green-50";
@@ -164,7 +164,7 @@ const CallSummary: React.FC<CallSummaryProps> = ({
                       : "border-green-500"
                   }`}
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  {/* <div className="flex items-center gap-2 mb-2">
                     <span
                       className={`font-semibold ${getSpeakerColor(
                         entry.speaker
@@ -177,7 +177,7 @@ const CallSummary: React.FC<CallSummaryProps> = ({
                         {entry.timestamp}
                       </span>
                     )}
-                  </div>
+                  </div> */}
                   <p className="leading-relaxed text-gray-800">
                     {entry.message}
                   </p>

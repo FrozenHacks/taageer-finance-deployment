@@ -13,7 +13,7 @@ const NewUserForm = ({ transitionTo }: any) => {
   const handleNext = async () => {
     try {
       setTimeout(() => {
-        transitionTo(""); //!Thank you page
+        transitionTo("feedback"); //!Thank you page
       }, 1000);
       console.log("Form Submitted:", { name, phoneNumber, dateOfBirth });
       return "success";

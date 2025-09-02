@@ -51,7 +51,7 @@ const Welcome: React.FC<WelcomeProps> = ({
     setIsInCall(false);
   };
   return (
-    <div className="flex flex-col w-screen h-screen bg-gradient-background">
+    <div className="flex flex-col w-screen h-screen ">
       {/* Main content container */}
       <div className="flex flex-col justify-between flex-1 w-full max-w-lg p-8 mx-auto">
         {/* Top section with logo */}

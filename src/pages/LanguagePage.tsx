@@ -26,6 +26,8 @@ const LanguagePage: React.FC<LanguagePageProps> = ({ transitionTo }) => {
       if (payload) {
         const data = JSON.parse(payload?.payload);
         setSelectedLanguage(data.language);
+        //* store call id in session
+        sessionStorage.setItem("call_id", data.call_id);
         console.log(data);
       }
       setTimeout(() => {
