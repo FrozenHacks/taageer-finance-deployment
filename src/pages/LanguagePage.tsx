@@ -41,12 +41,14 @@ const LanguagePage: React.FC<LanguagePageProps> = ({ transitionTo }) => {
   };
   // console.log("Room in LanguagePage:", room.activeSpeakers);
   useEffect(() => {
-    if (room) {
-      if (room.localParticipant["rpcHandlers"].has("handleLanguageChange")) {
-        room.unregisterRpcMethod("handleLanguageChange");
-      }
-      room.registerRpcMethod("handleLanguageChange", handleLanguageChange);
-    }
+    if (!room) return;
+    // if (room) {
+    // if (room.localParticipant["rpcHandlers"].has("handleLanguageChange")) {
+    room.unregisterRpcMethod?.("handleLanguageChange");
+    // }
+    room.registerRpcMethod("handleLanguageChange", handleLanguageChange);
+    // }
+    console.log("room:", room);
   }, [room]);
   // console.log("Selected Language:", selectedLanguage);
   return (

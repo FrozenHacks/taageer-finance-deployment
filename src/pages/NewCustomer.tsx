@@ -7,7 +7,7 @@ import { useTranscriptions } from "@livekit/components-react";
 import NewUserForm from "../components/NewUserForm";
 
 const NewCustomer = ({ transitionTo }: any) => {
-  useTranscriptions();
+  const transcriptions = useTranscriptions();
 
   return (
     <div className="flex flex-col w-screen h-screen bg-gradient-background">
@@ -20,7 +20,10 @@ const NewCustomer = ({ transitionTo }: any) => {
 
         {/* Middle section with welcome text and robot */}
         <div className="flex flex-col justify-center flex-1 mx-auto text-5xl font-bold font-montserrat ">
-          <NewUserForm transitionTo={transitionTo} />
+          <NewUserForm
+            transitionTo={transitionTo}
+            transcriptions={transcriptions}
+          />
         </div>
 
         {/* Bottom section with button and branding */}

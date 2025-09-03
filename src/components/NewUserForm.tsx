@@ -1,10 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRoomContext } from "@livekit/components-react";
+import {
+  useRoomContext,
+  // useTranscriptions,
+} from "@livekit/components-react";
 import { useEffect, useState } from "react";
+import { calculateCallTime, transformTranscriptionData } from "../utils/utils";
 
-const NewUserForm = ({ transitionTo }: any) => {
+const NewUserForm = ({ transitionTo, transcriptions }: any) => {
   const room = useRoomContext();
+  // const transcriptions = useTranscriptions();
+  console.log(transcriptions);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -12,9 +18,16 @@ const NewUserForm = ({ transitionTo }: any) => {
 
   const handleNext = async () => {
     try {
-      setTimeout(() => {
-        transitionTo("feedback"); //!Thank you page
-      }, 1000);
+      if (transcriptions) {
+        const transcription = transformTranscriptionData(transcriptions);
+        calculateCallTime(transcriptions); // calculate call time and store in session
+        sessionStorage.setItem("transcription", JSON.stringify(transcription));
+        console.log(transcriptions);
+      }
+      await room.disconnect();
+      // setTimeout(() => {
+      //   transitionTo("feedback"); //!Thank you page
+      // }, 1000);
       console.log("Form Submitted:", { name, phoneNumber, dateOfBirth });
       return "success";
     } catch (error) {
@@ -147,6 +160,7 @@ const NewUserForm = ({ transitionTo }: any) => {
           <span className="text-xl -translate-y-1 sm:text-2xl">&larr;</span>
           <span className="text-sm sm:text-base ">Back</span>
         </button>
+        {/* <DisconnectButton> */}
         <button
           onClick={handleNext}
           className="flex items-center justify-center space-x-2  font-bold py-3 px-6 rounded-lg shadow-lg  transition-colors duration-200 flex-1  bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB] "
@@ -154,6 +168,7 @@ const NewUserForm = ({ transitionTo }: any) => {
           <span className="text-sm sm:text-base">Next</span>
           <span className="text-xl -translate-y-1 sm:text-2xl">&rarr;</span>
         </button>
+        {/* </DisconnectButton> */}
       </div>
     </div>
   );

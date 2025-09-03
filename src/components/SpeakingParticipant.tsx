@@ -9,7 +9,7 @@ const SpeakingParticipant = () => {
     const speakingParticipants = allParticipants.filter((p) => p.isSpeaking);
     const firstSpeaker = speakingParticipants[0];
 
-    console.log(firstSpeaker);
+    // console.log(firstSpeaker);
     const timer = setTimeout(() => {
       const role = firstSpeaker?.identity?.startsWith("agent")
         ? "Agent speaking ..."

@@ -11,6 +11,8 @@ import { useState } from "react";
 import axios from "axios";
 import { MicDisabledIcon } from "@livekit/components-react";
 import { MicIcon } from "lucide-react";
+import useMicrophone from "../hooks/useMicrophone";
+// import { getMicrophoneAccess } from "../utils/utils";
 
 interface WelcomeProps {
   transitionTo: (newState: string) => void;
@@ -25,8 +27,9 @@ const Welcome: React.FC<WelcomeProps> = ({
   isInCall,
 }) => {
   const [token, setToken] = useState<string | null>(null);
-
+  const { getMicrophoneAccess } = useMicrophone();
   const startVoiceCall = async () => {
+    getMicrophoneAccess();
     if (isInCall || token) return;
     // transitionTo("userCheck");
     try {
