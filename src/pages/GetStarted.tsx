@@ -57,9 +57,18 @@ const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
     }
   }, [room]);
 
+  const handleDisconnect = () => {
+    window.location.reload();
+  };
   return (
     <div className="flex flex-col w-screen h-screen bg-gradient-background">
       {/* Main content container */}
+      <button
+        onClick={handleDisconnect}
+        className="bg-[#CF0101] border border-[#D2CEFF] text-white absolute right-5 top-5 px-6 py-3 rounded-lg"
+      >
+        Exit
+      </button>
       <div className="flex flex-col justify-between flex-1 w-full max-w-lg p-8 mx-auto">
         {/* Top section with logo */}
         <div className="pt-8">

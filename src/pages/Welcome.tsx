@@ -27,12 +27,13 @@ const Welcome: React.FC<WelcomeProps> = ({
   isInCall,
 }) => {
   const [token, setToken] = useState<string | null>(null);
-  const { getMicrophoneAccess } = useMicrophone();
+  const { getMicrophoneAccess, isConnected, disconnect } = useMicrophone();
   const startVoiceCall = async () => {
-    getMicrophoneAccess();
+    console.log(isConnected);
     if (isInCall || token) return;
     // transitionTo("userCheck");
     try {
+      getMicrophoneAccess();
       setIsInCall(true);
       const response = await axios.post(
         `${import.meta.env.VITE_FASTAPI_URL}/create_room_and_start_agent`
@@ -45,6 +46,7 @@ const Welcome: React.FC<WelcomeProps> = ({
       setTokenn(data.client.token);
     } catch (error) {
       setIsInCall(false);
+      disconnect();
       console.error("Error starting voice call:", error);
     }
   };

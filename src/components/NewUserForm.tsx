@@ -5,30 +5,33 @@ import {
   // useTranscriptions,
 } from "@livekit/components-react";
 import { useEffect, useState } from "react";
-import { calculateCallTime, transformTranscriptionData } from "../utils/utils";
+// import { calculateCallTime, transformTranscriptionData } from "../utils/utils";
 
-const NewUserForm = ({ transitionTo, transcriptions }: any) => {
+const NewUserForm = ({ transitionTo }: any) => {
   const room = useRoomContext();
   // const transcriptions = useTranscriptions();
-  console.log(transcriptions);
+
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [loanType, setLoanType] = useState("");
+  // const [dateOfBirth, setDateOfBirth] = useState("");
+  // const [loanType, setLoanType] = useState("");
 
+  // useEffect(() => {
+  //   console.log(transcriptions);
+  //   if (transcriptions && transcriptions.length > 0) {
+  //     const transcription = transformTranscriptionData(transcriptions);
+  //     calculateCallTime(transcriptions); // calculate call time and store in session
+  //     sessionStorage.setItem("transcription", JSON.stringify(transcription));
+  //     console.log(transcriptions);
+  //   }
+  // }, [transcriptions]);
   const handleNext = async () => {
     try {
-      if (transcriptions) {
-        const transcription = transformTranscriptionData(transcriptions);
-        calculateCallTime(transcriptions); // calculate call time and store in session
-        sessionStorage.setItem("transcription", JSON.stringify(transcription));
-        console.log(transcriptions);
-      }
-      await room.disconnect();
-      // setTimeout(() => {
-      //   transitionTo("feedback"); //!Thank you page
-      // }, 1000);
-      console.log("Form Submitted:", { name, phoneNumber, dateOfBirth });
+      // room.disconnect();
+      setTimeout(() => {
+        transitionTo("thankYou");
+      }, 200);
+      console.log("Form Submitted:", { name, phoneNumber });
       return "success";
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -53,8 +56,8 @@ const NewUserForm = ({ transitionTo, transcriptions }: any) => {
     const data = JSON.parse(payload.payload);
     setName(data.name);
     setPhoneNumber(data.phone_number);
-    setDateOfBirth(data.date_of_birth);
-    setLoanType(data.loan_type);
+    // setDateOfBirth(data.date_of_birth);
+    // setLoanType(data.loan_type);
     console.log(data);
     try {
       // setPhoneNumber(payload.data);
@@ -66,20 +69,29 @@ const NewUserForm = ({ transitionTo, transcriptions }: any) => {
   };
 
   useEffect(() => {
-    if (
-      room.localParticipant["rpcHandlers"].has("handleCustomerDataReceived")
-    ) {
-      room.unregisterRpcMethod("handleCustomerDataReceived");
-    }
-    if (room.localParticipant["rpcHandlers"].has("handleFormSubmission")) {
-      room.unregisterRpcMethod("handleFormSubmission");
-    }
+    // const unregisterRpcMethods = () => {
+    //   if (
+    //     room.localParticipant["rpcHandlers"].has("handleCustomerDataReceived")
+    //   ) {
+    //     room.unregisterRpcMethod("handleCustomerDataReceived");
+    //   }
+    //   if (room.localParticipant["rpcHandlers"].has("handleFormSubmission")) {
+    //     room.unregisterRpcMethod("handleFormSubmission");
+    //   }
+    // };
 
     if (room) {
       room.registerRpcMethod("handleCustomerDataReceived", handleUpdateDetails);
       room.registerRpcMethod("handleFormSubmission", handleNext);
       // room.registerRpcMethod("handleBack", handleBack);
     }
+    return () => {
+      if (room) {
+        room.unregisterRpcMethod("handleCustomerDataReceived");
+        room.unregisterRpcMethod("handleFormSubmission");
+      }
+      // unregisterRpcMethods();
+    };
   }, [room]);
   return (
     <div className="bg-white b rounded-3xl shadow-2xl p-6 sm:p-10 w-full max-w-sm border-1 border-[#F1F2F9] ">
@@ -121,7 +133,7 @@ const NewUserForm = ({ transitionTo, transcriptions }: any) => {
         </div>
 
         {/* Date of Birth Field */}
-        <div>
+        {/* <div>
           <label className="block mb-2 text-sm font-semibold text-gray-700">
             Date Of Birth
           </label>
@@ -133,10 +145,10 @@ const NewUserForm = ({ transitionTo, transcriptions }: any) => {
             className="w-full p-3 text-lg font-bold tracking-widest text-center text-gray-800 transition-colors duration-200 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Date of Birth"
           />
-        </div>
+        </div> */}
 
-        {/* Phone Number Field */}
-        <div>
+        {/* Loan type Field */}
+        {/* <div>
           <label className="block mb-2 text-sm font-semibold text-gray-700">
             Loan Type
           </label>
@@ -148,7 +160,7 @@ const NewUserForm = ({ transitionTo, transcriptions }: any) => {
             className="w-full p-3 text-lg font-bold tracking-widest text-center text-gray-800 transition-colors duration-200 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Loan Type"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Buttons */}

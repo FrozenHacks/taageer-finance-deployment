@@ -7,14 +7,14 @@ const ExistingUserForm = ({ transitionTo }: any) => {
   const room = useRoomContext();
   const [residentlId, setResidentId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  // const [dateOfBirth, setDateOfBirth] = useState("");
 
   const handleNext = async () => {
     try {
       setTimeout(() => {
         transitionTo("dashboard");
       }, 1000);
-      console.log("Form Submitted:", { residentlId, phoneNumber, dateOfBirth });
+      console.log("Form Submitted:", { residentlId, phoneNumber });
       return "success";
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -39,7 +39,7 @@ const ExistingUserForm = ({ transitionTo }: any) => {
     const data = JSON.parse(payload.payload);
     setResidentId(data.resident_id);
     setPhoneNumber(data.phone_number);
-    setDateOfBirth(data.date_of_birth);
+    // setDateOfBirth(data.date_of_birth);
     console.log(data);
     try {
       // setPhoneNumber(payload.data);
@@ -75,7 +75,7 @@ const ExistingUserForm = ({ transitionTo }: any) => {
       <div className="space-y-6">
         {/* Resident ID Field */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block mb-2 text-sm font-semibold text-gray-700">
             Resident ID
           </label>
           <input
@@ -83,14 +83,14 @@ const ExistingUserForm = ({ transitionTo }: any) => {
             value={residentlId}
             placeholder="HY1450367"
             onChange={(e) => setResidentId(e.target.value)}
-            className="w-full p-3 text-lg font-bold text-gray-800 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-center tracking-widest"
+            className="w-full p-3 text-lg font-bold tracking-widest text-center text-gray-800 transition-colors duration-200 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Resident ID"
           />
         </div>
 
         {/* Phone Number Field */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+          <label className="block mb-2 text-sm font-semibold text-gray-700">
             Phone Number
           </label>
           <input
@@ -98,14 +98,14 @@ const ExistingUserForm = ({ transitionTo }: any) => {
             value={phoneNumber}
             placeholder="7985206205"
             onChange={(e) => setPhoneNumber(e.target.value)}
-            className="w-full p-3 text-lg font-bold text-gray-800 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-center tracking-widest"
+            className="w-full p-3 text-lg font-bold tracking-widest text-center text-gray-800 transition-colors duration-200 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Phone Number"
           />
         </div>
 
         {/* Date of Birth Field */}
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-2">
+        {/* <div>
+          <label className="block mb-2 text-sm font-semibold text-gray-700">
             Date Of Birth
           </label>
           <input
@@ -113,19 +113,19 @@ const ExistingUserForm = ({ transitionTo }: any) => {
             value={dateOfBirth}
             placeholder="08-Sep-2000"
             onChange={(e) => setDateOfBirth(e.target.value)}
-            className="w-full p-3 text-lg font-bold text-gray-800 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 text-center tracking-widest"
+            className="w-full p-3 text-lg font-bold tracking-widest text-center text-gray-800 transition-colors duration-200 bg-gray-100 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Date of Birth"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Buttons */}
-      <div className="mt-8 flex justify-between items-center space-x-4">
+      <div className="flex items-center justify-between mt-8 space-x-4">
         <button
           onClick={handleBack}
           className="flex items-center shadow-inner justify-center space-x-2 text-[#09347A] font-bold py-3 px-6 rounded-lg border-2 border-[#D9DBE9] hover:bg-blue-100 transition-colors duration-200 flex-1"
         >
-          <span className="text-xl sm:text-2xl -translate-y-1">&larr;</span>
+          <span className="text-xl -translate-y-1 sm:text-2xl">&larr;</span>
           <span className="text-sm sm:text-base ">Back</span>
         </button>
         <button
@@ -133,7 +133,7 @@ const ExistingUserForm = ({ transitionTo }: any) => {
           className="flex items-center justify-center space-x-2  font-bold py-3 px-6 rounded-lg shadow-lg  transition-colors duration-200 flex-1  bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB] "
         >
           <span className="text-sm sm:text-base">Next</span>
-          <span className="text-xl sm:text-2xl  -translate-y-1">&rarr;</span>
+          <span className="text-xl -translate-y-1 sm:text-2xl">&rarr;</span>
         </button>
       </div>
     </div>

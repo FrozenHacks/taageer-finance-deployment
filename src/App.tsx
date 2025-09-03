@@ -11,6 +11,7 @@ import ExistingCustomers from "./pages/ExistingCustomers";
 import Dashboard from "./pages/Dashboard";
 import Feedback from "./pages/Feedback";
 import NewCustomer from "./pages/NewCustomer";
+import ThankYou from "./pages/ThankYou";
 
 function App() {
   const [currentState, setCurrentState] = useState<string | null>("welcome"); // Default state
@@ -74,8 +75,8 @@ function App() {
         return <Dashboard />;
       case "newCustomer":
         return <NewCustomer transitionTo={transitionTo} />;
-      // case "thankYouScreen":
-      //   return <ThankYouScreen transitionTo={transitionTo} />;
+      case "thankYou":
+        return <ThankYou />;
       // case "enquiry":
       //   return <Enquiry />;
 

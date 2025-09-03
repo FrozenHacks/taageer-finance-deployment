@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface UseMicrophoneReturn {
   getMicrophoneAccess: () => Promise<void>;
@@ -17,6 +16,17 @@ const useMicrophone = (): UseMicrophoneReturn => {
   const [isMuted, setIsMuted] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
 
+  console.log(stream);
+  const disconnect = useCallback(() => {
+    if (stream) {
+      stream.getAudioTracks().forEach((track) => track.stop());
+      setStream(null);
+      setAudioTrack(null);
+      setIsConnected(false);
+      setIsMuted(true);
+    }
+  }, [stream]);
+
   const getMicrophoneAccess = async () => {
     try {
       const newStream = await navigator.mediaDevices.getUserMedia({
@@ -29,16 +39,6 @@ const useMicrophone = (): UseMicrophoneReturn => {
       setIsMuted(false);
     } catch (error) {
       console.error("Error accessing microphone:", error);
-    }
-  };
-
-  const disconnect = () => {
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
-      setStream(null);
-      setAudioTrack(null);
-      setIsConnected(false);
-      setIsMuted(true);
     }
   };
 
@@ -68,7 +68,7 @@ const useMicrophone = (): UseMicrophoneReturn => {
     return () => {
       disconnect();
     };
-  }, []);
+  }, [disconnect]);
 
   return {
     getMicrophoneAccess,

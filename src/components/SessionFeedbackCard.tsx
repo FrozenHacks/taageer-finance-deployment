@@ -3,12 +3,12 @@ import { Star } from "lucide-react";
 
 interface SessionFeedbackCardProps {
   onSubmit: (data: { rating: number; feedback: string }) => void;
-  imageSrc?: string;
+  // imageSrc?: string;
 }
 
 const SessionFeedbackCard: React.FC<SessionFeedbackCardProps> = ({
   onSubmit,
-  imageSrc = "/placeholder-feedback-icon.png",
+  // imageSrc = "/placeholder-feedback-icon.png",
 }) => {
   const [rating, setRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number | null>(null);
@@ -30,23 +30,23 @@ const SessionFeedbackCard: React.FC<SessionFeedbackCardProps> = ({
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+    <div className="w-full max-w-md mx-auto overflow-hidden bg-white border border-gray-100 shadow-lg rounded-2xl">
       {/* Header */}
       <div className="relative px-6 pt-8 pb-6 bg-gradient-to-b from-blue-50 to-white">
-        <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center shadow-sm">
+        {/* <div className="flex justify-center mb-4">
+          <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full shadow-sm">
             <img
               src={imageSrc}
               alt="Feedback"
-              className="w-12 h-12 object-contain"
+              className="object-contain w-12 h-12"
             />
           </div>
-        </div>
+        </div> */}
         <div className="text-center">
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
+          <h2 className="mb-2 text-xl font-semibold text-gray-900 sm:text-2xl">
             Session Feedback
           </h2>
-          <p className="text-sm sm:text-base text-gray-600">
+          <p className="text-sm text-gray-600 sm:text-base">
             Please rate your experience below
           </p>
         </div>
@@ -68,7 +68,7 @@ const SessionFeedbackCard: React.FC<SessionFeedbackCardProps> = ({
                 onClick={() => handleStarClick(starIndex)}
                 onMouseEnter={() => setHoveredStar(starIndex)}
                 onMouseLeave={() => setHoveredStar(null)}
-                className="p-1 transition-transform duration-150 hover:scale-110 focus:outline-none rounded"
+                className="p-1 transition-transform duration-150 rounded hover:scale-110 focus:outline-none"
                 aria-label={`Rate ${starIndex + 1} stars`}
               >
                 <Star
@@ -88,7 +88,7 @@ const SessionFeedbackCard: React.FC<SessionFeedbackCardProps> = ({
         <div className="mb-6">
           <label
             htmlFor="feedback-input"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block mb-2 text-sm font-medium text-gray-700"
           >
             Additional Feedback
           </label>
@@ -98,7 +98,7 @@ const SessionFeedbackCard: React.FC<SessionFeedbackCardProps> = ({
             onChange={(e) => setFeedback(e.target.value)}
             placeholder="Share your thoughts..."
             rows={4}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-200 text-sm sm:text-base placeholder-gray-400"
+            className="w-full px-4 py-3 text-sm placeholder-gray-400 transition-colors duration-200 border border-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-base"
           />
         </div>
 
@@ -113,7 +113,7 @@ const SessionFeedbackCard: React.FC<SessionFeedbackCardProps> = ({
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin"></div>
               Submitting...
             </span>
           ) : (
