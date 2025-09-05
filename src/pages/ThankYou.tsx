@@ -75,18 +75,6 @@ const ThankYou = () => {
                 </div>
               ))}
             </div>
-            {/* Call-to-action button */}
-            {/* <button
-              disabled
-              className="w-full px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold text-white transition duration-300 transform bg-gradient-to-t from-[#067CAC] to-[#09347A] shadow-md rounded-xl hover:bg-indigo-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              onClick={() =>
-                alert(
-                  "Button clicked! You can link this to your chat or contact page."
-                )
-              }
-            >
-              Ask a Question
-            </button> */}
           </div>
         </div>
 

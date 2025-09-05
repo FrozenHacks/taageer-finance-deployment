@@ -104,11 +104,3 @@ export function calculateCallTime(transcriptions: any[]) {
   }
 }
 
-// export async function getMicrophoneAccess() {
-//   try {
-//     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//     console.log(stream);
-//   } catch (error) {
-//     console.error("Error accessing microphone:", error);
-//   }
-// }

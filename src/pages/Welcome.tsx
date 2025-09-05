@@ -1,8 +1,3 @@
-// import { Button } from "@/components/ui/button";
-// import Logo from "@/components/Logo";
-// import WelcomeText from "@/components/WelcomeText";
-// import RobotAssistant from "@/components/RobotAssistant";
-// import { Mic } from "lucide-react";
 import Logo from "../components/Logo";
 
 import CentralImage from "../components/CentralImage";
@@ -12,7 +7,6 @@ import axios from "axios";
 import { MicDisabledIcon } from "@livekit/components-react";
 import { MicIcon } from "lucide-react";
 import useMicrophone from "../hooks/useMicrophone";
-// import { getMicrophoneAccess } from "../utils/utils";
 
 interface WelcomeProps {
   transitionTo: (newState: string) => void;
@@ -33,7 +27,8 @@ const Welcome: React.FC<WelcomeProps> = ({
     if (isInCall || token) return;
     // transitionTo("userCheck");
     try {
-      getMicrophoneAccess();
+      if (!isConnected) await getMicrophoneAccess();
+
       setIsInCall(true);
       const response = await axios.post(
         `${import.meta.env.VITE_FASTAPI_URL}/create_room_and_start_agent`
@@ -47,11 +42,13 @@ const Welcome: React.FC<WelcomeProps> = ({
     } catch (error) {
       setIsInCall(false);
       disconnect();
+      console.log(isConnected);
       console.error("Error starting voice call:", error);
     }
   };
   const endVoiceCall = () => {
     console.log("Disconnecting from LiveKit room");
+    disconnect();
     setToken(null);
     setIsInCall(false);
   };
@@ -70,24 +67,12 @@ const Welcome: React.FC<WelcomeProps> = ({
           <div className="mb-10 text-center">
             <h1 className=" text-[#8294B1]  ">Welcome to</h1>
             <h2 className="text-[#067CAC] mb-4">AI ASSISTANT</h2>
-            {/* <div className="flex justify-center">
-              <div className="w-16 h-1 rounded-full bg-gradient-primary"></div>
-            </div> */}
           </div>
           <CentralImage image={"/robot-assistant.png"} />
         </div>
 
         {/* Bottom section with button and branding */}
         <div className="pb-8">
-          {/* <Button
-            variant="voice"
-            size="lg"
-            onClick={handleVoiceCall}
-            className="w-full mb-6 h-14"
-          >
-            <Mic className="w-6 h-6 mr-2" />
-            Start Voice Call
-          </Button> */}
           <button
             className={`bg-gradient-to-b w-full font-montserrat from-[#067CAC] to-[#09347A] font-bold text-[#FBFBFB] text-4xl p-4 rounded-lg ${
               isInCall ? "from-[#FF3737] to-[#8B0000]" : ""

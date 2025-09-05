@@ -1,11 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-// import { Button } from "@/components/ui/button";
-// import Logo from "@/components/Logo";
-// import WelcomeText from "@/components/WelcomeText";
-// import RobotAssistant from "@/components/RobotAssistant";
-// import { Mic } from "lucide-react";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Logo from "../components/Logo";
 
 import CentralImage from "../components/CentralImage";
@@ -39,18 +33,12 @@ const LanguagePage: React.FC<LanguagePageProps> = ({ transitionTo }) => {
       return "error";
     }
   };
-  // console.log("Room in LanguagePage:", room.activeSpeakers);
+
   useEffect(() => {
     if (!room) return;
-    // if (room) {
-    // if (room.localParticipant["rpcHandlers"].has("handleLanguageChange")) {
     room.unregisterRpcMethod?.("handleLanguageChange");
-    // }
     room.registerRpcMethod("handleLanguageChange", handleLanguageChange);
-    // }
-    // console.log("room:", room);
   }, [room]);
-  // console.log("Selected Language:", selectedLanguage);
 
   const handleDisconnect = () => {
     window.location.reload();
@@ -85,6 +73,7 @@ const LanguagePage: React.FC<LanguagePageProps> = ({ transitionTo }) => {
         <div className="pb-8">
           <div className="flex space-x-4">
             <button
+              disabled
               className={`${
                 selectedLanguage === "ar"
                   ? "bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB]"
@@ -101,6 +90,7 @@ const LanguagePage: React.FC<LanguagePageProps> = ({ transitionTo }) => {
               <p className="text-lg">Arabic</p>
             </button>
             <button
+              disabled
               className={`${
                 selectedLanguage === "en"
                   ? "bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB] "

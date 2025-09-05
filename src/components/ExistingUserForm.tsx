@@ -122,6 +122,7 @@ const ExistingUserForm = ({ transitionTo }: any) => {
       {/* Buttons */}
       <div className="flex items-center justify-between mt-8 space-x-4">
         <button
+          disabled
           onClick={handleBack}
           className="flex items-center shadow-inner justify-center space-x-2 text-[#09347A] font-bold py-3 px-6 rounded-lg border-2 border-[#D9DBE9] hover:bg-blue-100 transition-colors duration-200 flex-1"
         >
@@ -129,6 +130,7 @@ const ExistingUserForm = ({ transitionTo }: any) => {
           <span className="text-sm sm:text-base ">Back</span>
         </button>
         <button
+          disabled
           onClick={handleNext}
           className="flex items-center justify-center space-x-2  font-bold py-3 px-6 rounded-lg shadow-lg  transition-colors duration-200 flex-1  bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB] "
         >

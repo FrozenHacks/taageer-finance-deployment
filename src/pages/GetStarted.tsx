@@ -5,13 +5,17 @@ import CentralImage from "../components/CentralImage";
 import React, { useEffect, useState } from "react";
 import PoweredBy from "../components/PoweredBy";
 import { useRoomContext, useTranscriptions } from "@livekit/components-react";
+import useMicrophone from "../hooks/useMicrophone";
 
 interface GetStartedProps {
   transitionTo: (newState: string) => void;
 }
 const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
+  const { getMicrophoneAccess } = useMicrophone();
   const room = useRoomContext();
+
   useTranscriptions();
+  getMicrophoneAccess();
   const [customerType, setCustomerType] = useState<string | null>(null);
   const handleExistingUser = async () => {
     console.log("Existing customer clicked ");
@@ -36,7 +40,7 @@ const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
 
     try {
       setTimeout(() => {
-        transitionTo("newCustomer");
+        transitionTo("thankYou");
       }, 1000);
       return "success";
     } catch (error) {
@@ -87,6 +91,7 @@ const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
         <div className="pb-8">
           <div className="flex space-x-4">
             <button
+              disabled
               className={`flex flex-col justify-center items-center ${
                 customerType === "existingCustomer"
                   ? "bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB]"
@@ -104,6 +109,7 @@ const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
               </p>
             </button>
             <button
+              disabled
               className={`flex flex-col justify-center items-center ${
                 customerType === "newCustomer"
                   ? "bg-gradient-to-b from-[#067CAC] to-[#09347A] text-[#FBFBFB] "

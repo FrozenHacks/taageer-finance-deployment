@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import avatarIcon from "/robo.svg";
 import micIcon from "/greenMic.svg";
+import micOffIcon from "/redMic.svg";
 import speakerIcon from "/pause.svg";
 import endCallIcon from "/endCall.svg";
+
 import SpeakingParticipant from "./SpeakingParticipant";
-import { DisconnectButton, useTranscriptions } from "@livekit/components-react";
+import {
+  DisconnectButton,
+  // useIsMuted,
+  useLocalParticipant,
+  useTranscriptions,
+} from "@livekit/components-react";
 import { calculateCallTime, transformTranscriptionData } from "../utils/utils";
+// import useMicrophone from "../hooks/useMicrophone";
 
 const CallSessionTimer: React.FC = () => {
   const transcriptions = useTranscriptions();
+  // const { toggleMute, isMuted, isConnected } = useMicrophone();
+  const { localParticipant } = useLocalParticipant();
+  const [isMuted, setIsMuted] = useState(!localParticipant.isMicrophoneEnabled);
+
   // console.log(transcriptions.map((t) => t.participantInfo.identity));
   // const [seconds, setSeconds] = useState(120);
   // const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -44,9 +56,22 @@ const CallSessionTimer: React.FC = () => {
   //     .padStart(2, "0")} mins`;
   // };
 
-  const handleMute = () => {
-    console.log("mute");
+  // const handleMute = () => {
+  //   localParticipant.setMicrophoneEnabled(false);
+  //   console.log();
+  //   console.log(isConnected);
+  //   console.log(isMuted);
+  //   console.log("mute");
+  // };
+  useEffect(() => {
+    setIsMuted(!localParticipant.isMicrophoneEnabled);
+  }, [localParticipant.isMicrophoneEnabled]);
+
+  const handleToggleMute = () => {
+    localParticipant.setMicrophoneEnabled(isMuted);
+    setIsMuted(!isMuted);
   };
+
   return (
     <div className="w-full max-w-4xl p-4 mx-auto">
       {/* Desktop Layout */}
@@ -74,10 +99,19 @@ const CallSessionTimer: React.FC = () => {
           {/* Control Icons */}
           <div className="flex items-center justify-center gap-6 lg:gap-6">
             <div
-              onClick={handleMute}
+              onClick={handleToggleMute}
               className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer"
             >
-              <img src={micIcon} alt="Microphone" className="object-contain" />
+              <img
+                src={isMuted ? micOffIcon : micIcon}
+                alt="Microphone"
+                className="object-contain"
+              />
+              {/* <img
+                src={micOffIcon}
+                alt="Microphone"
+                className="object-contain"
+              /> */}
             </div>
             {/* <div className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer">
               <img src={speakerIcon} alt="Speaker" className="object-contain" />

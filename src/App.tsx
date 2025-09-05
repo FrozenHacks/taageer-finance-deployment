@@ -2,22 +2,21 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 import GetStarted from "./pages/GetStarted";
-import LanguagePage from "./pages/LanguagePage";
+// import LanguagePage from "./pages/LanguagePage";
 import Welcome from "./pages/Welcome";
 import NotFound from "./pages/NotFound";
 import { LiveKitRoom, RoomAudioRenderer } from "@livekit/components-react";
 import ExistingCustomers from "./pages/ExistingCustomers";
-// import SpeakingParticipant from "./components/SpeakingParticipant";
 import Dashboard from "./pages/Dashboard";
 import Feedback from "./pages/Feedback";
-import NewCustomer from "./pages/NewCustomer";
+// import NewCustomer from "./pages/NewCustomer";
 import ThankYou from "./pages/ThankYou";
 
 function App() {
   const [currentState, setCurrentState] = useState<string | null>("welcome"); // Default state
   const url = new URL(window.location.href);
   const id = url.pathname.split("/").pop();
-  // console.log(!id ? "no id " : "id");
+
   const [isInCall, setIsInCall] = useState(false);
   const [token, setToken] = useState("");
   const setupToken = (t: string) => {
@@ -34,9 +33,6 @@ function App() {
     };
   }, []);
   useEffect(() => {
-    // if (id == "feedback") {
-    //   return setCurrentState("feedback");
-    // }
     if (id) {
       return setCurrentState(null);
     }
@@ -46,21 +42,10 @@ function App() {
     console.log("Transitioning to:", newState);
   };
 
-  // const token = localStorage.getItem("token");
-
   const renderComponent = () => {
     switch (currentState) {
-      // case "welcome":
-      //   return (
-      //     <Welcome
-      //       transitionTo={transitionTo}
-      //       setTokenn={setupToken}
-      //       setIsInCall={setIsInCall}
-      //       isInCall={isInCall}
-      //     />
-      //   );
-      case "language":
-        return <LanguagePage transitionTo={transitionTo} />;
+      // case "language":
+      //   return <LanguagePage transitionTo={transitionTo} />;
       case "getstarted":
         return <GetStarted transitionTo={transitionTo} />;
 
@@ -73,17 +58,10 @@ function App() {
         );
       case "dashboard":
         return <Dashboard />;
-      case "newCustomer":
-        return <NewCustomer transitionTo={transitionTo} />;
+      // case "newCustomer":
+      //   return <NewCustomer transitionTo={transitionTo} />;
       case "thankYou":
         return <ThankYou />;
-      // case "enquiry":
-      //   return <Enquiry />;
-
-      // case "feedback":
-      //   return <Feedback />;
-      // default:
-      //   return <NotFound />;
     }
   };
   console.log("currecntState", currentState);
@@ -91,7 +69,7 @@ function App() {
   return (
     <div className="h-screen bg-white ">
       {currentState == null && <NotFound />}
-      {/* <Dashboard /> */}
+
       {currentState === "welcome" && (
         <Welcome
           transitionTo={transitionTo}
@@ -101,7 +79,7 @@ function App() {
         />
       )}
       {currentState === "feedback" && <Feedback />}
-      {/* <ExistingCustomers /> */}
+
       {token && isInCall && (
         <LiveKitRoom
           serverUrl={import.meta.env.VITE_LIVEKIT_SERVER_URL}
@@ -114,7 +92,8 @@ function App() {
             setIsInCall(true);
 
             setTimeout(() => {
-              transitionTo("language");
+              // transitionTo("language");
+              transitionTo("getstarted");
             }, 200);
           }}
           onDisconnected={() => {
@@ -130,7 +109,6 @@ function App() {
             console.error("LiveKitRoom error:", error);
           }}
         >
-          {/* <SpeakingParticipant /> */}
           <RoomAudioRenderer />
 
           {renderComponent()}

@@ -7,8 +7,6 @@ import axios from "axios";
 import { alternateSpeakerLabels } from "../utils/utils";
 
 const Feedback = () => {
-  // const transcription = useTranscriptions();
-  // console.log(transcription);
   let transcription = sessionStorage.getItem("transcription")
     ? JSON.parse(sessionStorage.getItem("transcription") as string)
     : null;
@@ -53,15 +51,6 @@ const Feedback = () => {
         <SessionFeedbackCard onSubmit={handleSubmitFeedback} />
         {/* Bottom section with button and branding */}
         <div className="pb-8">
-          {/* <Button
-            variant="voice"
-            size="lg"
-            onClick={handleVoiceCall}
-            className="w-full mb-6 h-14"
-          >
-            <Mic className="w-6 h-6 mr-2" />
-            Start Voice Call
-          </Button> */}
           <CallSummary
             callDurationSeconds={Number(callTime)}
             transcriptionData={transcription}

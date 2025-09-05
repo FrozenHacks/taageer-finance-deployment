@@ -16,10 +16,10 @@ const useMicrophone = (): UseMicrophoneReturn => {
   const [isMuted, setIsMuted] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
 
-  console.log(stream);
+  // console.log(audioTrack, isMuted, isConnected);
   const disconnect = useCallback(() => {
     if (stream) {
-      stream.getAudioTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach((track) => track.stop());
       setStream(null);
       setAudioTrack(null);
       setIsConnected(false);
@@ -28,9 +28,17 @@ const useMicrophone = (): UseMicrophoneReturn => {
   }, [stream]);
 
   const getMicrophoneAccess = async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      console.error("getUserMedia() not supported");
+      return;
+    }
+
     try {
       const newStream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
+        audio: {
+          echoCancellation: true,
+          noiseSuppression: true,
+        },
       });
       const newAudioTrack = newStream.getAudioTracks()[0];
       setStream(newStream);
@@ -62,7 +70,15 @@ const useMicrophone = (): UseMicrophoneReturn => {
     } else {
       mute();
     }
+    console.log(audioTrack);
   };
+
+  /** Ensure track.enabled matches state */
+  useEffect(() => {
+    if (audioTrack) {
+      audioTrack.enabled = !isMuted;
+    }
+  }, [audioTrack, isMuted]);
 
   useEffect(() => {
     return () => {
