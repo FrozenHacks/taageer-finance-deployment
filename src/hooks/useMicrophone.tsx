@@ -16,7 +16,6 @@ const useMicrophone = (): UseMicrophoneReturn => {
   const [isMuted, setIsMuted] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
 
-  // console.log(audioTrack, isMuted, isConnected);
   const disconnect = useCallback(() => {
     if (stream) {
       stream.getTracks().forEach((track) => track.stop());
@@ -70,15 +69,7 @@ const useMicrophone = (): UseMicrophoneReturn => {
     } else {
       mute();
     }
-    console.log(audioTrack);
   };
-
-  /** Ensure track.enabled matches state */
-  useEffect(() => {
-    if (audioTrack) {
-      audioTrack.enabled = !isMuted;
-    }
-  }, [audioTrack, isMuted]);
 
   useEffect(() => {
     return () => {

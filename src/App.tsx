@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 import GetStarted from "./pages/GetStarted";
-// import LanguagePage from "./pages/LanguagePage";
+import LanguagePage from "./pages/LanguagePage";
 import Welcome from "./pages/Welcome";
 import NotFound from "./pages/NotFound";
 import { LiveKitRoom, RoomAudioRenderer } from "@livekit/components-react";
 import ExistingCustomers from "./pages/ExistingCustomers";
 import Dashboard from "./pages/Dashboard";
 import Feedback from "./pages/Feedback";
-// import NewCustomer from "./pages/NewCustomer";
+import NewCustomer from "./pages/NewCustomer";
 import ThankYou from "./pages/ThankYou";
 
 function App() {
@@ -44,8 +44,8 @@ function App() {
 
   const renderComponent = () => {
     switch (currentState) {
-      // case "language":
-      //   return <LanguagePage transitionTo={transitionTo} />;
+      case "language":
+        return <LanguagePage transitionTo={transitionTo} />;
       case "getstarted":
         return <GetStarted transitionTo={transitionTo} />;
 
@@ -58,8 +58,8 @@ function App() {
         );
       case "dashboard":
         return <Dashboard />;
-      // case "newCustomer":
-      //   return <NewCustomer transitionTo={transitionTo} />;
+      case "newCustomer":
+        return <NewCustomer transitionTo={transitionTo} />;
       case "thankYou":
         return <ThankYou />;
     }
@@ -92,8 +92,7 @@ function App() {
             setIsInCall(true);
 
             setTimeout(() => {
-              // transitionTo("language");
-              transitionTo("getstarted");
+              transitionTo("language");
             }, 200);
           }}
           onDisconnected={() => {

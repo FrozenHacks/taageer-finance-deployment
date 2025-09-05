@@ -5,38 +5,18 @@ import micIcon from "/greenMic.svg";
 import micOffIcon from "/redMic.svg";
 import speakerIcon from "/pause.svg";
 import endCallIcon from "/endCall.svg";
-
 import SpeakingParticipant from "./SpeakingParticipant";
 import {
   DisconnectButton,
-  // useIsMuted,
   useLocalParticipant,
   useTranscriptions,
 } from "@livekit/components-react";
 import { calculateCallTime, transformTranscriptionData } from "../utils/utils";
-// import useMicrophone from "../hooks/useMicrophone";
 
 const CallSessionTimer: React.FC = () => {
   const transcriptions = useTranscriptions();
-  // const { toggleMute, isMuted, isConnected } = useMicrophone();
   const { localParticipant } = useLocalParticipant();
   const [isMuted, setIsMuted] = useState(!localParticipant.isMicrophoneEnabled);
-
-  // console.log(transcriptions.map((t) => t.participantInfo.identity));
-  // const [seconds, setSeconds] = useState(120);
-  // const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-
-  // Start and clean up timer
-  // useEffect(() => {
-  // 	intervalRef.current = setInterval(() => {
-  // 		setSeconds((prev) => prev + 1);
-  // 	}, 1000);
-
-  // 	return () => {
-  // 		if (intervalRef.current) clearInterval(intervalRef.current);
-  // 	};
-  // }, []);
-  // const [timer, setTimer] = useState(0);
 
   const handleDisconnect = () => {
     if (transcriptions) {
@@ -47,22 +27,6 @@ const CallSessionTimer: React.FC = () => {
     }
   };
 
-  // const time = 120;
-  // const formatTime = (totalSeconds: number): string => {
-  //   const minutes = Math.floor(totalSeconds / 60);
-  //   const remainingSeconds = totalSeconds % 60;
-  //   return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
-  //     .toString()
-  //     .padStart(2, "0")} mins`;
-  // };
-
-  // const handleMute = () => {
-  //   localParticipant.setMicrophoneEnabled(false);
-  //   console.log();
-  //   console.log(isConnected);
-  //   console.log(isMuted);
-  //   console.log("mute");
-  // };
   useEffect(() => {
     setIsMuted(!localParticipant.isMicrophoneEnabled);
   }, [localParticipant.isMicrophoneEnabled]);
@@ -71,7 +35,6 @@ const CallSessionTimer: React.FC = () => {
     localParticipant.setMicrophoneEnabled(isMuted);
     setIsMuted(!isMuted);
   };
-
   return (
     <div className="w-full max-w-4xl p-4 mx-auto">
       {/* Desktop Layout */}
@@ -106,12 +69,7 @@ const CallSessionTimer: React.FC = () => {
                 src={isMuted ? micOffIcon : micIcon}
                 alt="Microphone"
                 className="object-contain"
-              />
-              {/* <img
-                src={micOffIcon}
-                alt="Microphone"
-                className="object-contain"
-              /> */}
+              />{" "}
             </div>
             {/* <div className="flex items-center justify-center w-20 h-20 rounded-full cursor-pointer">
               <img src={speakerIcon} alt="Speaker" className="object-contain" />

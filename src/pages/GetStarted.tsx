@@ -5,17 +5,13 @@ import CentralImage from "../components/CentralImage";
 import React, { useEffect, useState } from "react";
 import PoweredBy from "../components/PoweredBy";
 import { useRoomContext, useTranscriptions } from "@livekit/components-react";
-import useMicrophone from "../hooks/useMicrophone";
 
 interface GetStartedProps {
   transitionTo: (newState: string) => void;
 }
 const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
-  const { getMicrophoneAccess } = useMicrophone();
   const room = useRoomContext();
-
   useTranscriptions();
-  getMicrophoneAccess();
   const [customerType, setCustomerType] = useState<string | null>(null);
   const handleExistingUser = async () => {
     console.log("Existing customer clicked ");
@@ -40,7 +36,7 @@ const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
 
     try {
       setTimeout(() => {
-        transitionTo("thankYou");
+        transitionTo("newCustomer");
       }, 1000);
       return "success";
     } catch (error) {
