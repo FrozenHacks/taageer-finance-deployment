@@ -58,6 +58,7 @@ const GetStarted: React.FC<GetStartedProps> = ({ transitionTo }) => {
   }, [room]);
 
   const handleDisconnect = () => {
+    room.disconnect();
     window.location.reload();
   };
   return (

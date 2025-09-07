@@ -68,7 +68,7 @@ const ExistingUserForm = ({ transitionTo }: any) => {
     <div className="bg-white b rounded-3xl shadow-2xl p-6 sm:p-10 w-full max-w-sm border-1 border-[#F1F2F9] ">
       {/* Title */}
       <h1 className="text-2xl sm:text-3xl font-extrabold text-[#09347A] text-center mb-8">
-        Tell me your details
+        Tell Me Your Details
       </h1>
 
       {/* Form Fields */}

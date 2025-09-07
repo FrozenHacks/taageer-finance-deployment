@@ -17,12 +17,18 @@ const Feedback = () => {
   console.log(callTime);
   const handleSubmitFeedback = async (data: any) => {
     const call_id = sessionStorage.getItem("call_id");
+    let transcription = sessionStorage.getItem("transcription");
     try {
-      console.log(data);
+      if (transcription) {
+        transcription = JSON.parse(transcription); // Parse the transcription string into JSON
+      }
+
+      console.log(call_id, data, transcription);
       axios.post(`${import.meta.env.VITE_FASTAPI_URL}/submit_feedback`, {
         call_id: call_id,
         star_rating: data.rating,
         feedback: data.feedback,
+        transcription: transcription || [],
       });
     } catch (error) {
       console.error(`Form Submit Error: ${error}`);
